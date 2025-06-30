@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+
+# Environment variables
+.env
+
+# macOS system files
+.DS_Store
+
+# Optional: salida de bundlers/transpiladores
+dist/
+build/
