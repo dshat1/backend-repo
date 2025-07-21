@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "title": "Remera Blanca",
+    "description": "Remera sólida blanca.",
+    "code": "code-1753141641749",
+    "price": 1500,
+    "status": true,
+    "stock": 90,
+    "category": "Remeras",
+    "thumbnails": []
+  }
+]
