@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Dependencias de Node
 /node_modules
 /npm-debug.log
@@ -56,3 +57,21 @@ Thumbs.db
 
 # gitignore hecho IA para evitar subir archivos innecesarios
 # y mantener el repositorio limpio y ordenado.
+=======
+# Node modules
+node_modules/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+
+# Environment variables
+.env
+
+# macOS system files
+.DS_Store
+
+# Optional: salida de bundlers/transpiladores
+dist/
+build/
+>>>>>>> 7615af12b0dfa9686fce79c263fb8d86fe186672

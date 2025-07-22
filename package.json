@@ -1,7 +1,34 @@
 {
+<<<<<<< HEAD
   "dependencies": {
     "express": "^5.1.0",
     "express-handlebars": "^8.0.2",
     "socket.io": "^4.8.1"
+=======
+  "name": "backend-project-api",
+  "version": "1.0.0",
+  "description": "API REST para gestión de productos y carritos con Node.js, Express y persistencia en archivos JSON",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "ecommerce",
+    "api",
+    "json"
+  ],
+  "author": "Diego Benjamin Escubilla",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+>>>>>>> 7615af12b0dfa9686fce79c263fb8d86fe186672
   }
 }
