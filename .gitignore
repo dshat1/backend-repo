@@ -10,7 +10,7 @@
 .env.test.local
 .env.production.local
 
-# Archivos de sistema operativo
+# Archivos de sistema operativo.
 .DS_Store
 Thumbs.db
 
