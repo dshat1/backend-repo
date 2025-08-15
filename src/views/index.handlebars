@@ -1,0 +1,49 @@
+{{!-- src/views/index.handlebars --}}
+
+{{#if success_message}}
+  <div id="success-alert" class="alert alert-success">
+    <p>{{success_message}}</p>
+  </div>
+{{/if}}
+
+<h2>Lista de Productos</h2>
+<form method="get" action="/products" style="margin-bottom: 10px;">
+  <label for="query">Filtro:</label>
+  <input id="query" name="query" type="text" value="{{query}}">
+  <label for="sort">Orden:</label>
+  <select id="sort" name="sort">
+    <option value="">Sin orden</option>
+    <option value="asc"  {{#if (eq sort "asc")}}selected{{/if}}>Ascendente</option>
+    <option value="desc" {{#if (eq sort "desc")}}selected{{/if}}>Descendente</option>
+  </select>
+  <label for="limit">Límite:</label>
+  <input id="limit" name="limit" type="number" min="1" value="{{limit}}">
+  <button type="submit">Aplicar</button>
+</form>
+
+<ul>
+  {{#each products}}
+    <li class="product-card">
+      <div class="product-info">
+        <h3><a href="/products/{{this._id}}">{{this.title}}</a></h3>
+        <p>{{this.description}}</p>
+        <p>Categoría: {{this.category}}</p>
+        <p>Precio: ${{this.price}}</p>
+        <p>Stock: {{this.stock}}</p>
+      </div>
+      <div class="product-actions">
+        <a href="/products/{{this._id}}" class="btn btn-detail">Detalles</a>
+        <form action="/api/carts/{{@root.cartId}}/products/{{this._id}}?_method=POST" method="post" style="display:inline">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" class="btn btn-add-cart">Agregar al carrito</button>
+        </form>
+      </div>
+    </li>
+  {{/each}}
+</ul>
+
+<div class="pagination">
+  {{#if hasPrevPage}}<a href="{{prevLink}}">« Anterior</a>{{/if}}
+  <span>Página {{page}} de {{totalPages}}</span>
+  {{#if hasNextPage}}<a href="{{nextLink}}">Siguiente »</a>{{/if}}
+</div>

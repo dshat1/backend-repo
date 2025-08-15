@@ -1,0 +1,62 @@
+{{!-- src/views/checkout.handlebars --}}
+
+<div class="checkout-container">
+  <h1>Finalizar Compra</h1>
+  <div class="checkout-content">
+    {{!-- Columna del Formulario --}}
+    <div class="checkout-form">
+      <h2>Tus Datos</h2>
+      <form action="/api/orders" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Apellido</label>
+            <input type="text" id="lastName" name="lastName" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Número de Teléfono</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Dirección</label>
+          <input type="text" id="address" name="address" required>
+        </div>
+        <div class="form-group">
+          <label for="city">Localidad</label>
+          <input type="text" id="city" name="city" required>
+        </div>
+        <button type="submit" class="btn btn-buy">Realizar Pedido</button>
+      </form>
+    </div>
+
+    {{!-- Columna del Resumen del Pedido --}}
+    <div class="checkout-summary">
+      <h2>Resumen de tu Carrito</h2>
+      {{#if cart.products.length}}
+        <ul class="summary-items">
+          {{#each cart.products}}
+            <li class="summary-item">
+              <span>{{this.product.title}} (x{{this.quantity}})</span>
+              <strong>${{this.subtotal}}</strong>
+            </li>
+          {{/each}}
+        </ul>
+        <div class="summary-total">
+          <span>Total</span>
+          <span class="total-price">${{cartTotal}}</span>
+        </div>
+      {{else}}
+        <p>No hay productos en tu carrito.</p>
+      {{/if}}
+      <a href="/carts/{{cart._id}}" class="edit-cart-link">Editar carrito</a>
+    </div>
+  </div>
+</div>

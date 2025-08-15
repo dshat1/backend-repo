@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="/css/{{style}}">
+</head>
+<body>
+  <header>
+  <h1>Mi Tienda de Productos</h1>
+  <nav>
+    <a href="/">Inicio</a>
+    <a href="/products">Productos</a>
+    {{#if totalItemsInCart}}
+      <a href="/carts/{{cartId}}">🛒 Carrito ({{totalItemsInCart}})</a>
+    {{/if}}
+  </nav>
+</header>
+  <main>
+    {{{body}}}
+  </main>
+  <footer class="footer">
+    <p>&copy; 2025 Mi Tienda. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="/js/cart.js"></script>
+
+</body>
+</html>
