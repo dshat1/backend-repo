@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login / Registro</title>
+  <style>
+    body { font-family: sans-serif; max-width: 500px; margin: 50px auto; }
+    form { display: flex; flex-direction: column; gap: 10px; }
+    input, select, button { padding: 8px; font-size: 1rem; }
+    .box { border: 1px solid #ccc; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+    h1, h2 { text-align: center; }
+    button { cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Bienvenido</h1>
+
+  <!-- Registro -->
+  <div class="box">
+    <h2>Crear cuenta</h2>
+    <form id="registerForm">
+      <input type="text" name="first_name" placeholder="Nombre" required>
+      <input type="text" name="last_name" placeholder="Apellido" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="number" name="age" placeholder="Edad" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      
+      <!-- Nuevo: elegir rol -->
+      <label for="role">Rol:</label>
+      <select name="role" id="role">
+        <option value="user" selected>Usuario</option>
+        <option value="admin">Administrador</option>
+      </select>
+
+      <button type="submit">Registrarse</button>
+    </form>
+    <p id="registerMsg"></p>
+  </div>
+
+  <!-- Login -->
+  <div class="box">
+    <h2>Iniciar sesión</h2>
+    <form id="loginForm">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <button type="submit">Entrar</button>
+    </form>
+    <p id="loginMsg"></p>
+  </div>
+
+  <!-- Usuario actual -->
+  <div class="box">
+    <h2>Mi cuenta</h2>
+    <button id="btnCurrent">Ver usuario actual</button>
+    <pre id="currentMsg"></pre>
+  </div>
+
+  <!-- Listar usuarios (admin only) -->
+  <div class="box">
+    <h2>Usuarios (solo admin)</h2>
+    <button id="btnListUsers">Listar usuarios</button>
+    <pre id="usersMsg"></pre>
+  </div>
+
+  <script>
+    const baseUrl = "http://localhost:8080/api/sessions";
+    const usersUrl = "http://localhost:8080/api/users";
+
+    // Registro
+    document.getElementById("registerForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target));
+      const res = await fetch(`${baseUrl}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const out = await res.json();
+      document.getElementById("registerMsg").innerText = out.message || JSON.stringify(out);
+    });
+
+    // Login
+    document.getElementById("loginForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target));
+      const res = await fetch(`${baseUrl}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const out = await res.json();
+      if(out.token){
+        localStorage.setItem("token", out.token); // Guardar JWT
+        document.getElementById("loginMsg").innerText = "Login exitoso ✅";
+      } else {
+        document.getElementById("loginMsg").innerText = out.message || "Error de login";
+      }
+    });
+
+    // Usuario actual
+    document.getElementById("btnCurrent").addEventListener("click", async () => {
+      const token = localStorage.getItem("token");
+      if(!token) return alert("Primero iniciá sesión");
+      const res = await fetch(`${baseUrl}/current`, {
+        headers: { "Authorization": "Bearer " + token }
+      });
+      const out = await res.json();
+      document.getElementById("currentMsg").innerText = JSON.stringify(out, null, 2);
+    });
+
+    // Listar usuarios (admin only)
+    document.getElementById("btnListUsers").addEventListener("click", async () => {
+      const token = localStorage.getItem("token");
+      if(!token) return alert("Primero iniciá sesión");
+      const res = await fetch(usersUrl, {
+        headers: { "Authorization": "Bearer " + token }
+      });
+      const out = await res.json();
+      document.getElementById("usersMsg").innerText = JSON.stringify(out, null, 2);
+    });
+  </script>
+</body>
+</html>

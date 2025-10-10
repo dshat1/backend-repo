@@ -1,0 +1,36 @@
+# Dependencias de Node
+/node_modules
+/npm-debug.log
+.npm
+
+# Archivos de entorno
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Archivos de sistema operativo.
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Cobertura de tests
+/coverage
+
+# Otros archivos generados
+# package-lock.json # Si usas npm, puedes ignorar package-lock.json y subir yarn.lock
+# yarn.lock # Si usas npm, puedes ignorar yarn.lock y subir package-lock.json

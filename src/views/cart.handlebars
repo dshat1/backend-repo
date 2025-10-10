@@ -1,0 +1,62 @@
+<div class="cart-container">
+  <div class="cart-header">
+    <h1>Tu Carrito de Compras</h1>
+    <a href="/products" class="btn">Seguir comprando</a>
+  </div>
+
+  {{#if error_message}}
+    <div class="alert alert-danger">
+      <p>{{error_message}}</p>
+    </div>
+  {{/if}}
+
+  {{#if cart.products.length}}
+    <div class="cart-content">
+      <div class="cart-items">
+        {{#each cart.products}}
+          {{#if this.product}}
+          <div class="cart-item">
+            <div class="item-details">
+              <h3><a href="/products/{{this.product._id}}">{{this.product.title}}</a></h3>
+              <p>Precio unitario: ${{this.product.price}}</p>
+              <p class="item-subtotal">Subtotal: ${{this.subtotal}}</p>
+            </div>
+            <div class="item-actions">
+              <input type="number" 
+                     name="quantity" 
+                     value="{{this.quantity}}" 
+                     min="1" 
+                     max="{{this.product.stock}}" 
+                     class="quantity-input" 
+                     data-cart-id="{{../cart._id}}" 
+                     data-product-id="{{this.product._id}}">
+              <form action="/api/carts/{{../cart._id}}/products/{{this.product._id}}?_method=DELETE" method="post">
+                <button type="submit" class="btn btn-delete">Eliminar</button>
+              </form>
+            </div>
+          </div>
+          {{/if}}
+        {{/each}}
+      </div>
+
+      <div class="cart-summary">
+        <h2>Resumen del Pedido</h2>
+        <div class="summary-total">
+          <span>Total</span>
+          <span class="total-price">${{cartTotal}}</span>
+        </div>
+        <form action="/checkout" method="get">
+          <button type="submit" class="btn btn-buy">Comprar Todo</button>
+        </form>
+        <form action="/api/carts/{{cart._id}}?_method=DELETE" method="post" class="clear-cart-form">
+          <button type="submit" class="btn btn-secondary">Vaciar Carrito</button>
+        </form>
+      </div>
+    </div>
+  {{else}}
+    <div class="cart-empty">
+      <p>Tu carrito está vacío.</p>
+      <a href="/products" class="btn">¡Empieza a comprar!</a>
+    </div>
+  {{/if}}
+</div>
