@@ -118,3 +118,5 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`🚀 Server corriendo en http://localhost:${PORT}`);
 });
+import mocksRouter from "./src/routes/mocks.router.js";
+app.use("/api/mocks", mocksRouter);
