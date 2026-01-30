@@ -2,4 +2,15 @@ node_modules
 npm-debug.log
 .env
 .git
+.vscode
+README.md
+README_DOCKER.md
+.DS_Store
+dist
+coverage
+/.idea
+/*.tgznode_modules
+npm-debug.log
+.env
+.git
 .DS_Store
