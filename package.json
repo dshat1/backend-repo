@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "cross-env NODE_ENV=test mocha --recursive --exit"
   },
   "dependencies": {
     "@faker-js/faker": "^10.1.0",
@@ -22,9 +23,17 @@
     "nodemailer": "^7.0.9",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "swagger-ui-express": "^4.6.3",
+    "swagger-jsdoc": "^6.2.8"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
-  }
+    "nodemon": "^3.1.10",
+    "mocha": "^10.2.0",
+    "chai": "^4.3.8",
+    "supertest": "^6.2.4",
+    "cross-env": "^7.0.3"
+  },
+  "optionalDependencies": {},
+  "peerDependencies": {}
 }

@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import sessionsRouter from './src/routes/sessions.js';
 import usersRouter from './src/routes/users.js';
+import adoptionRouter from './src/routes/adoption.router.js';
 
 import connectDB from './src/config/db.js';
 import Cart from './src/daos/models/cart.js';
@@ -102,6 +103,7 @@ app.use('/api/orders', ordersRouter);
 app.use('/', viewsRouter);
 app.use('/api/sessions', sessionsRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/adoptions', adoptionRouter);
 
 // ==================== Error Handler ====================
 app.use((err, req, res, next) => {
@@ -115,8 +117,16 @@ app.use((err, req, res, next) => {
 
 // ==================== Server Start ====================
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`🚀 Server corriendo en http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server corriendo en http://localhost:${PORT}`);
+  });
+}
+export default app;
 import mocksRouter from "./src/routes/mocks.router.js";
+import swaggerUi from 'swagger-ui-express';
+import fs from 'fs';
+
 app.use("/api/mocks", mocksRouter);
+const swaggerSpec = JSON.parse(fs.readFileSync(path.join(__dirname, 'docs', 'swagger-users.json'), 'utf8'));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
